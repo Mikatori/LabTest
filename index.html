@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng Lab Hóa Học Môi Trường Giả Lập</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation / Header -->
+        <header class="glass-header">
+            <div class="logo">
+                <span class="icon">🧪</span>
+                <h1>EnviroLab Sim</h1>
+            </div>
+            <nav>
+                <button class="nav-btn active" data-view="titration">Chuẩn độ</button>
+                <button class="nav-btn" data-view="ph-meter">Đo pH</button>
+                <button class="nav-btn" data-view="info">Hướng dẫn</button>
+            </nav>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="lab-workspace">
+            <!-- Sidebar: Tools & Chemicals -->
+            <aside class="sidebar glass-panel">
+                <h2>Dụng cụ & Hóa chất</h2>
+                
+                <div class="category">
+                    <h3>Dụng cụ thủy tinh</h3>
+                    <div class="tool-grid">
+                        <div class="tool-item" draggable="true" data-type="beaker">
+                            <div class="icon-placeholder">🥛</div>
+                            <span>Cốc Beaker</span>
+                        </div>
+                        <div class="tool-item" draggable="true" data-type="flask">
+                            <div class="icon-placeholder">⚗️</div>
+                            <span>Bình tam giác</span>
+                        </div>
+                        <div class="tool-item" draggable="true" data-type="burette">
+                            <div class="icon-placeholder">📏</div>
+                            <span>Burette</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h3>Hóa chất</h3>
+                    <div class="tool-grid">
+                        <div class="tool-item" draggable="true" data-type="chem-naoh">
+                            <div class="drop-color" style="background: #e0e0e0;"></div>
+                            <span>NaOH 0.1M</span>
+                        </div>
+                        <div class="tool-item" draggable="true" data-type="chem-hcl">
+                            <div class="drop-color" style="background: #e0e0e0;"></div>
+                            <span>HCl (Mẫu)</span>
+                        </div>
+                        <div class="tool-item" draggable="true" data-type="chem-indicator">
+                            <div class="drop-color" style="background: #ff007f;"></div>
+                            <span>Phenolphthalein</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center Stage: The Lab Bench -->
+            <section class="bench-area">
+                <div class="bench-surface" id="lab-bench">
+                    <div class="placeholder-text">Kéo dụng cụ vào đây để bắt đầu thí nghiệm</div>
+                    <!-- Dynamic content will be placed here -->
+                </div>
+            </section>
+
+            <!-- Info Panel / Data Log -->
+            <aside class="info-panel glass-panel">
+                <h2>Thông số</h2>
+                <div class="data-display">
+                    <label>Thể tích NaOH đã dùng:</label>
+                    <div class="digital-readout" id="vol-readout">0.00 mL</div>
+                </div>
+                <div class="data-display">
+                    <label>pH hiện tại (ước tính):</label>
+                    <div class="digital-readout" id="ph-readout">--</div>
+                </div>
+                <div class="status-log" id="status-log">
+                    <p>Chào mừng đến với phòng thí nghiệm.</p>
+                </div>
+                <div class="controls">
+                    <button class="action-btn danger" id="reset-btn">Làm lại</button>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="scripts/app.js"></script>
+</body>
+</html>
