@@ -126,6 +126,8 @@ bench.addEventListener('drop', (e) => {
 });
 
 function handleDrop(type, x, y) {
+    console.log("Dropped:", type, "at", x, y); // Debug log
+
     // 1. SETUP: Place Flask
     if (type === 'flask') {
         if (state.objects.flask) {
@@ -134,6 +136,17 @@ function handleDrop(type, x, y) {
         }
         createFlask(x, y);
         log("Đã đặt bình tam giác.");
+    }
+    // 1b. SETUP: Place Beaker (Added)
+    else if (type === 'beaker') {
+        if (state.objects.flask) { // Reuse flask slot for simplicity in v1
+            log("Bàn thí nghiệm đã có dụng cụ.");
+            return;
+        }
+        // Ideally createBeaker, but for titration we need flask.
+        // Let's allow placing it but warn the user for this specific experiment.
+        createBeaker(x, y);
+        log("Đã đặt cốc Beaker. (Lưu ý: Thí nghiệm Chuẩn độ thường dùng Bình tam giác)");
     }
     // 2. SETUP: Place Burette
     else if (type === 'burette') {
@@ -176,11 +189,37 @@ function handleDrop(type, x, y) {
             log("Cần có mẫu nước trong bình trước.");
         }
     }
+    // Default fallback
+    else {
+        log(`Không thể đặt ${type} vào lúc này.`);
+    }
 }
 
 // ==========================================
 // OBJECT CREATION
 // ==========================================
+function createBeaker(x, y) {
+    const el = document.createElement('div');
+    el.className = 'sim-object beaker-container';
+    el.style.left = 'calc(50% - 40px)';
+    el.style.top = 'calc(50% - 20px)';
+
+    el.innerHTML = `
+        <div class="beaker-body">
+            <div class="liquid" style="height: 0%"></div>
+        </div>
+    `;
+
+    bench.appendChild(el);
+    // Treat it as the main vessel for now so chemicals can be added
+    state.objects.flask = {
+        el: el,
+        hasSample: false,
+        hasIndicator: false,
+        liquidVol: 0
+    };
+}
+
 function createFlask(x, y) {
     const el = document.createElement('div');
     el.className = 'sim-object flask-container';
